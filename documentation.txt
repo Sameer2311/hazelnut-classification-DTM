@@ -1,0 +1,41 @@
+so the first we were have the folder structure 
+
+hazelnut/
+train/
+ └── good/photos
+
+test/
+ ├── crack/images
+ ├── cut/images
+ ├── hole/images
+ ├── print/images
+ └── good/images
+
+
+
+
+then we did it like this with the help of python script: (but first I make the folder of data-->raw/processed , I want to do this by script)
+
+hazelnut/
+│
+├── data/
+│   ├── raw/                  # Original dataset (no changes)
+│   │
+│   └── processed/            # After splitting + preprocessing
+│       ├── train/
+│       │   ├── ok/
+│       │   └── not_ok/
+│       │
+│       ├── val/
+│       │   ├── ok/
+│       │   └── not_ok/
+│       │
+│       └── test/
+│           ├── ok/
+│           └── not_ok/
+│
+├── prepare_dataset.py        # Script to split + preprocess data
+│
+├── notebook.ipynb            # ✅ Main training + experimentation notebook
+│
+└── README.md (optional)      # Project explanation
