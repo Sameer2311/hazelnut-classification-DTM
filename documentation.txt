@@ -39,3 +39,26 @@ hazelnut/
 ├── notebook.ipynb            # ✅ Main training + experimentation notebook
 │
 └── README.md (optional)      # Project explanation
+
+
+Final Target Structure
+
+hazelnut-classification/
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── notebooks/
+│   └── main.ipynb
+│
+├── src/
+│   ├── prepare_dataset.py
+│   ├── dataset.py
+│   ├── model_ann.py
+│   ├── model_cnn.py
+│   └── train.py
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
