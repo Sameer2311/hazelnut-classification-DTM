@@ -284,3 +284,75 @@ Setup → Data → Preprocess → Handle Imbalance → Build Models → Train �
 ```
 
 
+
+
+
+
+
+
+Hazelnut Classification Project Flow
+
+Project Structure:
+- data/raw → original images
+- data/processed → train/val/test split
+- src/ → all backend python files
+- notebooks/main.ipynb → experiments, testing, visualization
+
+Flow:
+1. prepare_dataset.py
+   - Takes images from data/raw
+   - Creates train/val/test split inside data/processed
+   - Runs only once initially
+
+2. dataset.py
+   - Loads processed dataset
+   - Applies transforms and augmentation
+   - Creates train_loader, val_loader, test_loader
+   - Imported into train.py
+
+3. model_ann.py
+   - Contains ANN/Dense Neural Network architecture
+   - Only defines model class
+
+4. model_cnn.py
+   - Contains CNN architecture
+   - Only defines model class
+
+5. train.py
+   - Main training pipeline
+   - Imports dataset loaders from dataset.py
+   - Imports ANN or CNN model
+   - Defines loss function and optimizer
+   - Runs training + validation loop
+   - Saves trained model (.pth)
+
+6. notebooks/main.ipynb
+   - Used for testing and experimentation
+   - Load saved model
+   - Predict on images
+   - Plot accuracy/loss graphs
+   - Compare ANN vs CNN
+   - Create confusion matrix
+
+Important Rules:
+- dataset.py only handles data
+- model files only define architectures
+- train.py connects everything
+- main.ipynb is for analysis/testing only
+
+Execution Order:
+prepare_dataset.py
+   ↓
+dataset.py
+   ↓
+model_ann.py / model_cnn.py
+   ↓
+train.py
+   ↓
+saved model (.pth)
+   ↓
+main.ipynb
+
+Current Status:
+- Dataset split already completed using prepare_dataset.py
+- Next step: build dataset.py

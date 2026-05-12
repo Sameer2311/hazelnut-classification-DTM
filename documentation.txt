@@ -16,7 +16,7 @@ test/
 
 then we did it like this with the help of python script: (but first I make the folder of data-->raw/processed , I want to do this by script)
 
-hazelnut/
+hazelnut-classification/
 │
 ├── data/
 │   ├── raw/                  # Original dataset (no changes)
@@ -41,25 +41,62 @@ hazelnut/
 └── README.md (optional)      # Project explanation
 
 
-Final Target Structure
-
-hazelnut-classification/
+Final  Structure```text id="r8d4r8"
+HAZELNUT-CLASSIFICATION - SAMEER/
+│
+├── .vscode/
 │
 ├── data/
-│   ├── raw/
-│   └── processed/
+│   │
+│   ├── processed/
+│   │   │
+│   │   ├── test/
+│   │   │   ├── not_ok/
+│   │   │   └── ok/
+│   │   │
+│   │   ├── train/
+│   │   │   ├── not_ok/
+│   │   │   └── ok/
+│   │   │
+│   │   └── val/
+│   │       ├── not_ok/
+│   │       └── ok/
+│   │
+│   └── raw/
+│       │
+│       ├── test/
+│       │   ├── crack/
+│       │   ├── cut/
+│       │   ├── good/
+│       │   ├── hole/
+│       │   └── print/
+│       │
+│       └── train/
+│           └── good/
 │
 ├── notebooks/
+│   │
+│   ├── models/
+│   │   ├── ann_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
+│   │   └── cnn_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
+│   │
+│   ├── results/
+│   │   └── experiment_results.csv
+│   │
 │   └── main.ipynb
 │
 ├── src/
-│   ├── prepare_dataset.py
+│   │
+│   ├── __pycache__/
 │   ├── dataset.py
-│   ├── model_ann.py
-│   ├── model_cnn.py
+│   ├── model_ANN.py
+│   ├── model_CNN.py
+│   ├── prepare_dataset.py
 │   └── train.py
 │
-├── requirements.txt
-├── README.md
-└── .gitignore
-
+├── .gitignore
+├── config.py
+├── documentation.txt
+├── Flow of the project.txt
+└── requirements.txt
+```
