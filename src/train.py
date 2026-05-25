@@ -43,16 +43,14 @@ def train_model(
     # CREATE FOLDERS
     # =====================================================
 
-    os.makedirs("models", exist_ok=True)
+    os.makedirs("notebooks/models", exist_ok=True)
 
-    os.makedirs("results", exist_ok=True)
+    os.makedirs("notebooks/results", exist_ok=True)
+
+    results_file="notebooks/results/experiment_results.csv"
 
 
-    # =====================================================
-    # RESULTS CSV FILE
-    # =====================================================
-
-    results_file = "results/experiment_results.csv"
+ 
 
 
     # =====================================================
@@ -308,7 +306,7 @@ def train_model(
         f"epoch-{epochs}.pth"
     )
 
-    save_path = os.path.join("models", model_name)
+    save_path = os.path.join("notebooks/models", model_name)
 
 
     # =====================================================

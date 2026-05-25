@@ -41,7 +41,7 @@ hazelnut-classification/
 └── README.md (optional)      # Project explanation
 
 
-Final  Structure```text id="r8d4r8"
+
 HAZELNUT-CLASSIFICATION - SAMEER/
 │
 ├── .vscode/
