@@ -1,3 +1,0 @@
-Model,Optimizer,Learning Rate,Dropout,Weight Decay,Epochs,Train Loss,Train Accuracy,Validation Loss,Validation Accuracy,Model Path
-cnn,adam,0.001,0.3,0.0001,10,0.2327,91.94,0.4268,85.33,models\cnn_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
-ann,adam,0.001,0.3,0.0001,10,0.4411,85.97,0.4428,80.0,models\ann_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth

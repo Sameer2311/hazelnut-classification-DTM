@@ -42,7 +42,7 @@ hazelnut-classification/
 
 
 
-HAZELNUT-CLASSIFICATION - SAMEER/
+HAZELNUT-CLASSIFICATION 
 │
 ├── .vscode/
 │
@@ -74,15 +74,16 @@ HAZELNUT-CLASSIFICATION - SAMEER/
 │       └── train/
 │           └── good/
 │
+│
+├── models/
+│     ├── ann_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
+│     └── cnn_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
+│
+├── results/
+|     └── experiment_results.csv
+│
+│
 ├── notebooks/
-│   │
-│   ├── models/
-│   │   ├── ann_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
-│   │   └── cnn_opt-adam_lr-0.001_drop-0.3_wd-0.0001_epoch-10.pth
-│   │
-│   ├── results/
-│   │   └── experiment_results.csv
-│   │
 │   └── main.ipynb
 │
 ├── src/
@@ -95,8 +96,7 @@ HAZELNUT-CLASSIFICATION - SAMEER/
 │   └── train.py
 │
 ├── .gitignore
-├── config.py
+├── app.py
 ├── documentation.txt
-├── Flow of the project.txt
 └── requirements.txt
 ```

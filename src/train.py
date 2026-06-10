@@ -8,7 +8,7 @@ import csv
 import torch
 import torch.nn as nn
 import torch.optim as optim
-
+from pathlib import Path
 from dataset import train_loader, val_loader
 
 from model_ANN import ANNModel
@@ -38,19 +38,21 @@ def train_model(
     print(f"Using Device: {device}")
     print("=" * 60)
 
+    # =========================================================
+    # BASE DIRECTORY (always points to project root)
+    # =========================================================
 
-    # =====================================================
-    # CREATE FOLDERS
-    # =====================================================
-
-    os.makedirs("notebooks/models", exist_ok=True)
-
-    os.makedirs("notebooks/results", exist_ok=True)
-
-    results_file="notebooks/results/experiment_results.csv"
-
-
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # src/train.py  →  up once = src/  →  up twice = HAZELNUT-CLASSIFICATION/
  
+    # =====================================================
+    # CREATE FOLDERS  (was: "models" / "results")
+    # =====================================================
+
+    os.makedirs(os.path.join(BASE_DIR, "models"), exist_ok=True)
+    os.makedirs(os.path.join(BASE_DIR, "results"), exist_ok=True)
+
+    results_file = os.path.join(BASE_DIR, "results", "experiment_results.csv")
 
 
     # =====================================================
@@ -306,7 +308,12 @@ def train_model(
         f"epoch-{epochs}.pth"
     )
 
-    save_path = os.path.join("notebooks/models", model_name)
+
+    # =====================================================
+    # SAVE MODEL  (was: os.path.join("models", model_name))
+    # =====================================================
+
+    save_path = os.path.join(BASE_DIR, "models", model_name)
 
 
     # =====================================================
@@ -405,13 +412,13 @@ def train_model(
 # DIRECT SCRIPT EXECUTION
 # =========================================================
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    train_model(
-        model_type="cnn",
-        epochs=10,
-        learning_rate=0.001,
-        optimizer_name="adam",
-        dropout_rate=0.3,
-        weight_decay=0.0001
-    )
+#     train_model(
+#         model_type="cnn",
+#         epochs=10,
+#         learning_rate=0.001,
+#         optimizer_name="adam",
+#         dropout_rate=0.3,
+#         weight_decay=0.0001
+#     )
