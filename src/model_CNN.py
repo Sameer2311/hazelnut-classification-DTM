@@ -1,8 +1,4 @@
 
-
-
-
-
 import torch
 import torch.nn as nn
 
@@ -45,9 +41,7 @@ class CNNModel(nn.Module):
             nn.MaxPool2d(kernel_size=2)
         )
 
-        # =================================================
         # CLASSIFIER
-        # =================================================
 
         self.classifier = nn.Sequential(
 
@@ -63,9 +57,7 @@ class CNNModel(nn.Module):
             nn.Linear(128, 2)
         )
 
-    # -----------------------------------------------------
     # FORWARD PASS
-    # -----------------------------------------------------
     def forward(self, x):
 
         x = self.features(x)
@@ -75,9 +67,7 @@ class CNNModel(nn.Module):
         return x
 
 
-# =========================================================
 # TEST MODEL
-# =========================================================
 
 if __name__ == "__main__":
 

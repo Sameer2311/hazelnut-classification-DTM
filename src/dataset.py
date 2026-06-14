@@ -1,28 +1,19 @@
 
-# torch is the main PyTorch library
 import torch
-
-# DataLoader helps load images in batches
 from torch.utils.data import DataLoader
-
-# torchvision contains image utilities for deep learning
 from torchvision import datasets, transforms
-
-# os helps create proper file paths
 import os
 
-# =========================================================
-# BASE PROJECT DIRECTORY
-# =========================================================
+
+# BASE PROJECT DIRECTOR
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(
         os.path.abspath(__file__)
     )
 )
-# =========================================================
+
 # DATASET PATHS
-# =========================================================
 
 TRAIN_DIR = os.path.join(
     BASE_DIR,
@@ -46,25 +37,6 @@ TEST_DIR = os.path.join(
 )
 
 
-# =========================================================
-# IMAGE TRANSFORMATIONS
-# =========================================================
-# Transformations are preprocessing steps applied to images
-#
-# Why needed?
-# Neural networks cannot directly understand raw images.
-# Images must be converted into a standardized format.
-# =========================================================
-
-
-# =========================================================
-# TRAIN TRANSFORMS
-# =========================================================
-# These transformations are applied ONLY to training images.
-#
-# Why augmentation here?
-# To help model generalize better and reduce overfitting.
-# =========================================================
 
 train_transform = transforms.Compose([
 
@@ -102,17 +74,7 @@ train_transform = transforms.Compose([
         std=[0.5, 0.5, 0.5]
     )
 ])
-
-
-# =========================================================
-# VALIDATION + TEST TRANSFORMS
-# =========================================================
-# No augmentation here.
-#
-# Why?
-# Validation and test data should remain unchanged
-# so evaluation is fair and realistic.
-# =========================================================
+\
 
 test_transform = transforms.Compose([
 
@@ -130,25 +92,7 @@ test_transform = transforms.Compose([
 ])
 
 
-# =========================================================
-# LOAD DATASETS USING IMAGEFOLDER
-# =========================================================
-#
-# ImageFolder automatically:
-# - reads folder names as class labels
-# - loads all images
-#
-# Your folder structure:
-#
-# train/
-#    ok/
-#    not_ok/
-#
-# Automatically becomes:
-#
-# ok      -> class 0
-# not_ok  -> class 1
-# =========================================================
+# LOAD DATASETS USING IMAGEFOLDER\
 
 
 # Training dataset
@@ -170,15 +114,7 @@ test_dataset = datasets.ImageFolder(
 )
 
 
-# =========================================================
 # CREATE DATALOADERS
-# =========================================================
-#
-# DataLoader helps:
-# - load images in batches
-# - shuffle training data
-# - efficiently feed data into model
-# =========================================================
 
 
 # Batch size:
@@ -221,23 +157,17 @@ test_loader = DataLoader(
 )
 
 
-# =========================================================
 # CLASS NAMES
-# =========================================================
 # Stores folder/class names
 #
 # Example:
 # ['not_ok', 'ok']
-# =========================================================
 
 class_names = train_dataset.classes
 
 
-# =========================================================
+
 # PRINT DATASET INFORMATION
-# =========================================================
-# Useful for checking everything loaded correctly
-# =========================================================
 if __name__ == "__main__":
     print("===================================")
     print("Dataset Loaded Successfully")
@@ -252,29 +182,9 @@ if __name__ == "__main__":
     print("===================================")
 
 
-    # =========================================================
-    # TEST ONE BATCH
-    # =========================================================
-    # Helps verify:
-    # - image shape
-    # - batch loading
-    # - labels
-    # =========================================================
-
     # Get one batch from training loader
     images, labels = next(iter(train_loader))
 
     print(f"Batch Image Shape: {images.shape}")
     print(f"Batch Label Shape: {labels.shape}")
 
-
-    # Example expected output:
-    #
-    # Batch Image Shape:
-    # torch.Size([32, 3, 128, 128])
-    #
-    # Meaning:
-    # 32 -> batch size
-    # 3 -> RGB channels
-    # 128 -> height
-    # 128 -> width

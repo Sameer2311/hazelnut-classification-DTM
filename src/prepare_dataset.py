@@ -9,33 +9,16 @@ for img in good_path.rglob("*"):
     if img.is_file():
         count += 1
 
-##print("Good images in train:",count)
 
 good_paths = [
     RAW_PATH / "train/good",
     RAW_PATH / "test/good"
 ]
 
-# count = 0
-# for path in good_paths:
-#     for img in path.rglob("*"):
-#         if img.is_file():
-#             count += 1
-
-##print("Total GOOD images:", count)
 
 
 defect_folders = ["crack", "cut", "hole", "print"]
 
-# count = 0
-
-# for defect in defect_folders:
-#     folder = RAW_PATH / f"test/{defect}"
-#     for img in folder.rglob("*"):
-#         if img.is_file():
-#             count += 1
-
-# print("Total DEFECT images:", count)
 
 data = []
 
@@ -52,8 +35,6 @@ for defect in defect_folders:
         if img.is_file():
             data.append((img, "not_ok"))
 
-# print("Total samples:", len(data))
-# print("First sample:", data[0])
 
 
 
@@ -61,7 +42,6 @@ import random
 
 random.shuffle(data)
 
-# print("After shuffle:", data[0])
 
 
 total = len(data)
@@ -78,14 +58,7 @@ print(len(train_data), len(val_data), len(test_data))
 
 import shutil
 
-# img_path, label = train_data[0]
-
-# dest = Path("data/processed/train") / label / img_path.name
-
-# print("Copying:", img_path, "→", dest)
-
-# unique_name = f"{img_path.parent.name}_{img_path.name}"
-# print(unique_name)
+# Create processed dataset folders
 
 
 import os

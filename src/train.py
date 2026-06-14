@@ -15,9 +15,7 @@ from model_ANN import ANNModel
 from model_CNN import CNNModel
 
 
-# =========================================================
 # TRAIN MODEL FUNCTION
-# =========================================================
 
 def train_model(
     model_type="cnn",
@@ -25,12 +23,12 @@ def train_model(
     learning_rate=0.001,
     optimizer_name="adam",
     dropout_rate=0.3,
-    weight_decay=0.0001
+    weight_decay=0.0001,
+    experiment_name="default"
 ):
 
-    # =====================================================
+
     # DEVICE SETUP
-    # =====================================================
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -38,16 +36,13 @@ def train_model(
     print(f"Using Device: {device}")
     print("=" * 60)
 
-    # =========================================================
     # BASE DIRECTORY (always points to project root)
-    # =========================================================
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     # src/train.py  →  up once = src/  →  up twice = HAZELNUT-CLASSIFICATION/
  
-    # =====================================================
-    # CREATE FOLDERS  (was: "models" / "results")
-    # =====================================================
+   
+    # CREATE FOLDERS  (ensure models/ and results/ exist)
 
     os.makedirs(os.path.join(BASE_DIR, "models"), exist_ok=True)
     os.makedirs(os.path.join(BASE_DIR, "results"), exist_ok=True)
@@ -55,9 +50,7 @@ def train_model(
     results_file = os.path.join(BASE_DIR, "results", "experiment_results.csv")
 
 
-    # =====================================================
     # MODEL CREATION
-    # =====================================================
 
     if model_type.lower() == "ann":
 
@@ -81,16 +74,12 @@ def train_model(
     model = model.to(device)
 
 
-    # =====================================================
     # LOSS FUNCTION
-    # =====================================================
-
     criterion = nn.CrossEntropyLoss()
 
 
-    # =====================================================
+
     # OPTIMIZER SELECTION
-    # =====================================================
 
     if optimizer_name.lower() == "adam":
 
@@ -121,22 +110,14 @@ def train_model(
         raise ValueError("Invalid optimizer selected.")
 
 
-    # =====================================================
     # TRAINING START
-    # =====================================================
-
     print("\nStarting Training...\n")
 
 
-    # =====================================================
     # TRAINING LOOP
-    # =====================================================
-
     for epoch in range(epochs):
 
-        # =================================================
         # TRAIN MODE
-        # =================================================
 
         model.train()
 
@@ -147,10 +128,7 @@ def train_model(
         total = 0
 
 
-        # =================================================
         # TRAINING BATCHES
-        # =================================================
-
         for images, labels in train_loader:
 
             # Move data to device
@@ -159,27 +137,20 @@ def train_model(
             labels = labels.to(device)
 
 
-            # =============================================
             # ANN INPUT RESHAPE
-            # =============================================
 
             if MODEL_NAME == "ann":
 
                 images = images.view(images.size(0), -1)
 
 
-            # =============================================
             # FORWARD PASS
-            # =============================================
-
             outputs = model(images)
 
             loss = criterion(outputs, labels)
 
 
-            # =============================================
             # BACKPROPAGATION
-            # =============================================
 
             optimizer.zero_grad()
 
@@ -188,10 +159,7 @@ def train_model(
             optimizer.step()
 
 
-            # =============================================
             # TRAIN METRICS
-            # =============================================
-
             running_loss += loss.item()
 
             _, predicted = torch.max(outputs, 1)
@@ -201,18 +169,14 @@ def train_model(
             correct += (predicted == labels).sum().item()
 
 
-        # =================================================
         # FINAL TRAIN RESULTS
-        # =================================================
 
         train_loss = running_loss / len(train_loader)
 
         train_acc = 100 * correct / total
 
 
-        # =================================================
         # VALIDATION
-        # =================================================
 
         model.eval()
 
@@ -232,18 +196,14 @@ def train_model(
                 labels = labels.to(device)
 
 
-                # =========================================
                 # ANN INPUT RESHAPE
-                # =========================================
 
                 if MODEL_NAME == "ann":
 
                     images = images.view(images.size(0), -1)
 
 
-                # =========================================
                 # FORWARD PASS
-                # =========================================
 
                 outputs = model(images)
 
@@ -258,19 +218,13 @@ def train_model(
                 val_correct += (predicted == labels).sum().item()
 
 
-        # =================================================
         # FINAL VALIDATION RESULTS
-        # =================================================
-
         val_loss = val_loss / len(val_loader)
 
         val_acc = 100 * val_correct / val_total
 
 
-        # =================================================
         # PRINT RESULTS
-        # =================================================
-
         print("=" * 60)
 
         print(f"Epoch [{epoch + 1}/{epochs}]")
@@ -284,10 +238,7 @@ def train_model(
         print(f"Val Acc    : {val_acc:.2f}%")
 
 
-        # =================================================
         # OVERFITTING CHECK
-        # =================================================
-
         if train_acc - val_acc > 15:
 
             print("Possible Overfitting Detected")
@@ -295,11 +246,9 @@ def train_model(
         print("=" * 60)
 
 
-    # =====================================================
     # MODEL SAVE NAME
-    # =====================================================
-
     model_name = (
+        f"{experiment_name}_"
         f"{MODEL_NAME}_"
         f"opt-{optimizer_name}_"
         f"lr-{learning_rate}_"
@@ -309,17 +258,10 @@ def train_model(
     )
 
 
-    # =====================================================
-    # SAVE MODEL  (was: os.path.join("models", model_name))
-    # =====================================================
-
     save_path = os.path.join(BASE_DIR, "models", model_name)
 
 
-    # =====================================================
     # SAVE MODEL
-    # =====================================================
-
     torch.save(model.state_dict(), save_path)
 
     print("\nModel Saved Successfully")
@@ -327,10 +269,7 @@ def train_model(
     print(f"Saved Path: {save_path}")
 
 
-    # =====================================================
     # SAVE RESULTS TO CSV
-    # =====================================================
-
     file_exists = os.path.isfile(results_file)
 
     try:
@@ -339,13 +278,10 @@ def train_model(
 
             writer = csv.writer(file)
 
-            # =============================================
-            # WRITE HEADER ONLY ONCE
-            # =============================================
-
             if not file_exists:
 
                 writer.writerow([
+                    "Experiment",
                     "Model",
                     "Optimizer",
                     "Learning Rate",
@@ -360,11 +296,10 @@ def train_model(
                 ])
 
 
-            # =============================================
             # WRITE EXPERIMENT DATA
-            # =============================================
 
             writer.writerow([
+                experiment_name,
                 MODEL_NAME,
                 optimizer_name,
                 learning_rate,
@@ -383,9 +318,7 @@ def train_model(
         print("\nClose experiment_results.csv before training.")
 
 
-    # =====================================================
     # TRAINING COMPLETE
-    # =====================================================
 
     print("\n" + "=" * 60)
 
@@ -394,10 +327,7 @@ def train_model(
     print("=" * 60)
 
 
-    # =====================================================
     # RETURN RESULTS
-    # =====================================================
-
     return {
         "model": MODEL_NAME,
         "train_loss": train_loss,
@@ -408,9 +338,7 @@ def train_model(
     }
 
 
-# =========================================================
 # DIRECT SCRIPT EXECUTION
-# =========================================================
 
 # if __name__ == "__main__":
 
